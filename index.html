@@ -3,10 +3,27 @@
 <head>
 	<title></title>
 </head>
+<style>
+	.axisblue path,.axisblue g,.axisblue line{
+		stroke:blue;
+	}
+	.arcs{
+		fill:blue;
+	}
+	.backgro{
+		background: black
+	}
+
+</style>
 <body>
 <h1>Charts</h1>	
+<div class='backgro'>
 <svg id="root"></svg>
+<svg id="circle"></svg>
+<button onclick="toggledata(data,height,margin)">Toggle</button>
+</div>
 </body>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <script src ="https://cdnjs.cloudflare.com/ajax/libs/d3/5.7.0/d3.min.js" type="text/javascript"></script>
 <script type="text/javascript" src='./d3charts.js'></script>
 </html>

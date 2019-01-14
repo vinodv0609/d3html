@@ -22,6 +22,7 @@
 
     var startdate= datecalculator()
     var enddate= startdate;
+  
     var datavalue= getdatafromapi(startdate,enddate);
     console.log(datavalue);
     var data=[]
@@ -31,6 +32,7 @@
       var output=(typeof value.outputpower == 'undefined')? 0:(value.outputpower/100)
       data[index]={x:index,input:input,output:output}
     });
+    console.log(data)
     /*************scales ***********/
     var xmaxrange=d3.max(getxarray());
     var xscales=d3.scaleLinear()
@@ -208,6 +210,7 @@
                           var yvalue=height-(datainput.input+datainput.output)-margin.bottom
                          groupedobj[index]={x:datainput.x,y:yvalue,height:datainput.output} 
                     });
+                    console.log(groupedobj)
                     output.selectAll('rect').data(groupedobj).transition().duration(2000).
               attr('x',function(data){
                    return xscales(data.x)      
@@ -299,13 +302,15 @@ function toggledata(data,height,margin){
                 dataval[index]={x:index,input:input,output:output}
               });
               console.log(dataval)
-              input.selectAll('rect').
-                exit().remove().
-            data(dataval).enter()
-            .append('rect').
-            attr('x',function(data){
+              console.log(input)
+              console.log(output)
+          input.selectAll('rect').remove()
+              input.selectAll('rect').data(dataval).enter()
+                    .append('rect').
+                attr('x',function(data){
+
                  return xscales(data.x)      
-            }).
+              }).
             attr('data-index',function(data){
                   //console.log(yscales(data.input))
                  return data.x
@@ -320,12 +325,17 @@ function toggledata(data,height,margin){
             attr('fill','orange').
             attr('height',function(data){
                   return data.input;
-            })
+            }).on("click", toggledata) 
 
-       output.selectAll('rect').exit().remove().
-            data(stackeddata(dataval,height,margin)).enter().
+            console.log(input.selectAll('rect')) 
+            console.log(stackeddata(dataval,height,margin)  )
+            var datastack=stackeddata(dataval,height,margin)
+       output.selectAll('rect').remove()
+       output.selectAll('rect')
+            .data(datastack).enter().
             append('rect').
             attr('x',function(data){
+              console.log(data)
                  return xscales(data.x)      
             }).
             attr('y',function(data){
@@ -342,7 +352,7 @@ function toggledata(data,height,margin){
             attr('fill','blue').
             attr('height',function(data){
                   return data.height;
-            })       
+            }).on("click", toggledata)    
 
 
 
